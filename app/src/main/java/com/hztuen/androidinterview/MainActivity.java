@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.hztuen.androidinterview.adapter.MainAdapter;
 import com.hztuen.androidinterview.handler.HandlerActivity;
+import com.hztuen.androidinterview.jdk7Objects.Jdk7ObjectsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,18 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
 
     private void initData() {
         list.add("handler面试问题");
+        list.add("jdk7 Objects类");
     }
 
     @Override
     public void onItemClickListener(int position) {
-        startActivity(new Intent(this, HandlerActivity.class));
+        switch (position){
+            case 0:
+                startActivity(new Intent(this, HandlerActivity.class));
+                break;
+            case 1:
+                startActivity(new Intent(this, Jdk7ObjectsActivity.class));
+                break;
+        }
     }
 }
