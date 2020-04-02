@@ -2,12 +2,12 @@ package com.hztuen.androidinterview;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import com.hztuen.androidinterview.adapter.MainAdapter;
 import com.hztuen.androidinterview.handler.HandlerActivity;
 import com.hztuen.androidinterview.jdk7Objects.Jdk7ObjectsActivity;
+import com.hztuen.androidinterview.reflect.ReflectTestActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
     private void initData() {
         list.add("handler面试问题");
         list.add("jdk7 Objects类");
+        list.add("求泛型中最小值问题");
+        list.add("java中的反射");
     }
 
     @Override
@@ -40,6 +42,13 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
                 break;
             case 1:
                 startActivity(new Intent(this, Jdk7ObjectsActivity.class));
+                break;
+            case 2:
+                startActivity(new Intent(this, RequestMinValueActivity.class));
+                break;
+            case 3:
+                startActivity(new Intent(this, ReflectTestActivity.class));
+
                 break;
         }
     }

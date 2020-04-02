@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".handler.HandlerActivity"/>
+        <activity android:name=".jdk7Objects.Jdk7ObjectsActivity"/>
+        <activity android:name=".RequestMinValueActivity"/>
+        <activity android:name=".reflect.ReflectTestActivity"/>
     </application>
 
 </manifest>

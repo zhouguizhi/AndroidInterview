@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="反射在javase中是一个非常重要的知识点,可能在平时使用不多,但是很多框架都会用到,所以必须要熟悉
+        今天就系统的总结下反射\n
+        反射机制是什么\n 反射就是在运行时期可以动态的获取类的所有信息\n
+        反射机制能做什么 主要有如下:\n
+
+        1:在运行时判断任意一个对象所属的类；\n
+        2:在运行时构造任意一个类的对象；\n
+        3:在运行时判断任意一个类所具有的成员变量和方法；\n
+        4:在运行时调用任意一个对象的方法；\n
+        5:生成动态代理\n
+
+        反射机制的相关API\n
+        通过一个对象获得完整的包名和类名\n
+        实例化Class类对象\n
+        获取一个对象的父类与实现的接口\n
+        获取某个类中的全部构造函数 - 详见下例\n
+        通过反射机制实例化一个类的对象\n
+        获取某个类的全部属性\n
+        获取某个类的全部方法\n
+        通过反射机制调用某个类的方法\n
+        通过反射机制操作某个类的属性\n
+        反射机制的动态代理\n
+        反射机制的应用实例\n
+        在泛型为Integer的ArrayList中存放一个String类型的对象。\n
+        通过反射取得并修改数组的信息\n
+        通过反射机制修改数组的大小\n
+        将反射机制应用于工厂模式"
+        />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Class类主要的方法总结\n
+                1:getClasses():返回表示该类的公共成员的类对象数组 比如一个类中定义了其他的类并且这个类是public修饰的\n
+                2:isInterface():判断是不是接口\n
+                3:isArray()判断是不是数组 注意:集合不算是数组\n
+                4:isPrimitive()表示是不是原始类型\n
+                5:isAnnotation()判断是不是注解\n
+                6:getSuperclass()返回直接父类 返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的超类的 Class,
+                不显示泛型参数\n
+                7:getGenericSuperclass()返回直接继承的父类（包含泛型参数）这个在网络请求中json转bean中会用到 \n
+                8:getPackage()获取这个类对应的包名\n
+                9:getSuperclass():获取直接父类 没有显示泛型参数\n
+                10:getGenericSuperclass():返回直接继承的父类（包含泛型参数）\n 比如在网络请求中json转bean会用到]\n
+                11:getInterfaces()获取该类实现的接口"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这个问题很简单,就是求最小值问题,但是求泛型中的最小值问题,还是第一次看到,也是在github上看到这个题的
+        觉得很有意思,而且其中泛型的使用有一个地方没见识过,觉得学习"
+        />
+</LinearLayout>
