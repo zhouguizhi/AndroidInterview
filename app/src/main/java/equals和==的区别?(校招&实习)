@@ -1,0 +1,45 @@
+如果2个数是基本类型使用==表示判断的是数值是否相等,在java中8大基本类型有
+char byte int short long float double boolean
+
+如果是2个非基本数值类型也就是引用类型用==比较,比较的是内存地址值是否相等,是同一个对象就为true，否则为false
+
+equals方法是Object中的方法,
+ public boolean equals(Object obj) {
+        return (this == obj);
+    }
+ 默认是判断二个对象地址值是否相等,当然可以去重写equals()让不用判断二个地址值相等,比如String中的equals()方法就重写了
+  public boolean equals(Object anObject) {
+          //如果二个对象地址值相等, 那么
+         if (this == anObject) {
+             return true;
+         }
+         //判断anObject 是不是String类型 null instanceof String 返回false, 在java中
+         //只有null instanceOf Object 才为true, 其他都为false
+         if (anObject instanceof String) {
+             String anotherString = (String)anObject;
+             int n = value.length;
+             //这是判断字符串的长度 只有长度一样才会进行判断 否则肯定不是同一个字符串了 这是指字符串内容
+             if (n == anotherString.value.length) {
+                 char v1[] = value;
+                 char v2[] = anotherString.value;
+                 int i = 0;
+                 while (n-- != 0) {
+                 //这是判断每个字符是否相等
+                     if (v1[i] != v2[i])
+                         return false;
+                     i++;
+                 }
+                 return true;
+             }
+         }
+         return false;
+     }
+
+总结:
+== 的作用: 基本类型:比较值是否相等 引用类型:比较内存地址值是否相等
+equals 的作用: 引用类型:默认情况下，比较内存地址值是否相等。可以按照需求逻辑，重写对象的equals方法。
+PS:可以延伸自己写代码比较一个基本类型的包装类对象使用 == 和 equals进行比较的结果
+
+
+
+

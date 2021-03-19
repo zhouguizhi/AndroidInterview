@@ -1,0 +1,16 @@
+1 什么是Service?(校招&实习)
+Service是Android系统提供的四大组件之一，它的地位和Activity的并列的，只不过没有Activity的使用频率高。顾名思 义Service就是运行在后台的一种服务程序，一般情况下，
+很少和用户交互，最大的特点就是没有可视化界面
+
+2 Service和Thread的区别?
+很多时候，你可能会问，为什么要用Service，而不用Thread 呢，因为用Thread是很方便的，比起 Service也方便多
+了，下面我详细的来解释一下
+a:Thread 是程序执行的最小单元，它是分配CPU的基本单位。可以用Thread来执行一些异步的操作
+b:Service:Service 是android的一种机制，当它运行的时候如果是Local Service，那么对应的Service是运行在主
+  进程的main线程上的。如:onCreate，onStart 这些函数在被系统调用的时候都是在主进程的main线程上运行的。如果是Remote Service，
+  那么对应的Service则是运行在独立进程的main线程上。因此请不要把Service理解成线程，它跟线程半毛钱的关系都没有!
+  因此你可以把Service想象成一种消息服务，而你可以在任何有Context的地方调用Context.startService、 Context.stopService、Context.bindService，
+  Context.unbindService，来控制它，你也可以在Service里注册BroadcastReceiver，在其他地方通过发送broadcast来控制它，当然这些都是Thread做不到的
+  Thread运行在子线程中,而Service是运行在主线程中,而且如果在Activity中使用Thread一不小心可能会引起内存泄露,而Service更好控,而且Service有远程Service概念.
+
+

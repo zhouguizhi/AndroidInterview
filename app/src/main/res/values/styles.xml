@@ -7,5 +7,20 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!--透明activity的style-->
+    <style name="transparent_activity">
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+    <style name="mytheme" parent="android:style/Theme.Dialog">
 
-</resources>
+                <!-- <item name="android:paddingBottom">100px</item> -->
+                <item name="android:windowBackground">@drawable/upload_dialog</item>
+                <item name="android:windowIsTranslucent">true</item>
+                <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        </style>
+    </resources>
+
+

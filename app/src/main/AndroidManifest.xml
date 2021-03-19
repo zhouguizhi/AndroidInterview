@@ -21,6 +21,8 @@
         <activity android:name=".jdk7Objects.Jdk7ObjectsActivity"/>
         <activity android:name=".RequestMinValueActivity"/>
         <activity android:name=".reflect.ReflectTestActivity"/>
+        <activity android:name=".activity.OneActivity"/>
+        <activity android:name=".activity.TranActivity" android:theme="@style/mytheme"/>
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.hztuen.androidinterview.activity.OneActivity;
 import com.hztuen.androidinterview.adapter.MainAdapter;
 import com.hztuen.androidinterview.handler.HandlerActivity;
 import com.hztuen.androidinterview.jdk7Objects.Jdk7ObjectsActivity;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         list.add("jdk7 Objects类");
         list.add("求泛型中最小值问题");
         list.add("java中的反射");
+        list.add("什么情况下Activity不走onDestory?");
     }
 
     @Override
@@ -48,7 +51,9 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
                 break;
             case 3:
                 startActivity(new Intent(this, ReflectTestActivity.class));
-
+                break;
+            case 4:
+                startActivity(new Intent(this, OneActivity.class));
                 break;
         }
     }

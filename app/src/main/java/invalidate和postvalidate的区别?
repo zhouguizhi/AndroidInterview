@@ -1,0 +1,62 @@
+invalidate和postvalidate的区别?
+答:invalidate()是在主线程刷新然后通知view去通知执行onDraw()方法
+现在看下源码
+/**
+     * Invalidate the whole view. If the view is visible,
+     * {@link #onDraw(android.graphics.Canvas)} will be called at some point in
+     * the future.
+     * <p>
+     * This must be called from a UI thread. To call from a non-UI thread, call
+     * {@link #postInvalidate()}.
+     */
+    public void invalidate() {
+        invalidate(true);
+    }
+从注释中我们看到 它会去调用onDraw()方法,invalidate()必须在ui线程中调用,如果要在非ui线程中更新就使用postInvalidate()
+那么就再看下postInvalidate()方法源码
+   /**
+     * <p>Cause an invalidate to happen on a subsequent cycle through the event loop.
+     * Use this to invalidate the View from a non-UI thread.</p>
+     *
+     * <p>This method can be invoked from outside of the UI thread
+     * only when this View is attached to a window.</p>
+     *
+     * @see #invalidate()
+     * @see #postInvalidateDelayed(long)
+     */
+    public void postInvalidate() {
+        postInvalidateDelayed(0);
+    }
+    //postInvalidateDelayed方法源码
+     public void postInvalidateDelayed(long delayMilliseconds) {
+            // We try only with the AttachInfo because there's no point in invalidating
+            // if we are not attached to our window
+            final AttachInfo attachInfo = mAttachInfo;
+            if (attachInfo != null) {
+                attachInfo.mViewRootImpl.dispatchInvalidateDelayed(this, delayMilliseconds);
+            }
+        }
+
+
+  //最终会走到这里
+  public void dispatchInvalidateDelayed(View view, long delayMilliseconds) {
+         Message msg = mHandler.obtainMessage(MSG_INVALIDATE, view);
+         mHandler.sendMessageDelayed(msg, delayMilliseconds);
+     }
+   看到这个代码就会知道其他是在子线程中通过Handler发送消息到主线程中
+   然后找到MSG_INVALIDATE---->这个是what,然后全局找下MSG_INVALIDATE,在哪做了处理
+
+    @Override
+           public void handleMessage(Message msg) {
+               switch (msg.what) {
+                   case MSG_INVALIDATE:
+                       ((View) msg.obj).invalidate();
+                       break;
+  最终发现其实最后还是调用了invalidate()中方法刷新UI
+
+  现在我有个问题了,如果我就是在主线程中调用了postInvalidate()会怎么样呢?
+  写代码测试
+
+
+
+

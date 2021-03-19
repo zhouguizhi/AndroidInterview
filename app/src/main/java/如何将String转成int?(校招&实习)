@@ -1,0 +1,100 @@
+在Java中要将String类型转化为int类型时,需要使用 Integer 类中的 parseInt() 方法或者 valueOf() 方法进行转换
+有二种方法
+第一种方法:
+ String str = "123";
+try {
+    int a = Integer.parseInt(str);
+} catch (NumberFormatException e) {
+    e.printStackTrace();
+}
+
+
+第二种方法
+ String str = "123";
+try {
+    int b = Integer.valueOf(str).intValue()
+} catch (NumberFormatException e) {
+    e.printStackTrace();
+}
+
+现在来看看源码是怎么实现的
+  public static int parseInt(String s) throws NumberFormatException {
+        return parseInt(s,10);
+    }
+  其中的是10是表示java中的10进制,
+
+  真正的实现源码如下:
+   public static int parseInt(String s, int radix)
+                  throws NumberFormatException
+      {
+          /*
+           * WARNING: This method may be invoked early during VM initialization
+           * before IntegerCache is initialized. Care must be taken to not use
+           * the valueOf method.
+           */
+            //判断字符串是否为null
+          if (s == null) {
+              throw new NumberFormatException("null");
+          }
+            //表示进制不能小于2   Character.MIN_RADIX为2
+          if (radix < Character.MIN_RADIX) {
+              throw new NumberFormatException("radix " + radix +
+                                              " less than Character.MIN_RADIX");
+          }
+            //表示进制不能大于36
+          if (radix > Character.MAX_RADIX) {
+              throw new NumberFormatException("radix " + radix +
+                                              " greater than Character.MAX_RADIX");
+          }
+          //定义的结果局部变量
+          int result = 0;
+          //表示是不是负数
+          boolean negative = false;
+          //i表示从那个字符串下标开始算  len 字符串的长度
+          int i = 0, len = s.length();
+          //最小值
+          int limit = -Integer.MAX_VALUE;
+          int multmin;
+          int digit;
+
+          if (len > 0) {
+              //获取字符串中第一个字符
+              char firstChar = s.charAt(0);
+              if (firstChar < '0') { // Possible leading "+" or "-"
+                  if (firstChar == '-') {
+                      negative = true;
+                      limit = Integer.MIN_VALUE;
+                  } else if (firstChar != '+')
+                      throw NumberFormatException.forInputString(s);
+
+                  if (len == 1) // Cannot have lone "+" or "-"
+                      throw NumberFormatException.forInputString(s);
+                  i++;
+              }
+              multmin = limit / radix;
+              while (i < len) {
+                  // Accumulating negatively avoids surprises near MAX_VALUE
+                  digit = Character.digit(s.charAt(i++),radix);
+                  if (digit < 0) {
+                      throw NumberFormatException.forInputString(s);
+                  }
+                  if (result < multmin) {
+                      throw NumberFormatException.forInputString(s);
+                  }
+                  result *= radix;
+                  if (result < limit + digit) {
+                      throw NumberFormatException.forInputString(s);
+                  }
+                  result -= digit;
+              }
+          } else {//这是字符串为空直接抛异常
+              throw NumberFormatException.forInputString(s);
+          }
+          return negative ? result : -result;
+      }
+总结起来
+1:要判断第一个字符是不是以0 +以及其他符号开头的,如果是0就省略 如果是+号也省略 如果是其他符号开头的第一个字符直接报错NumberFormatException
+数字格式化异常
+
+
+

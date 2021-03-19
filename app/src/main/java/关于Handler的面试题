@@ -1,0 +1,7 @@
+1 子线程一定不能更新UI吗?(校招&实习)
+不一定。
+原因:Activity存在一种审计机制，这个机制会在Activity完全显示之后工作，如果子线程在Activity完全显示之前更新UI是可行的;
+比如SurfaceView和Progress相关控件就可以在子线程中更新ui
+SurfaceView:多媒体视频播放，也可以在子线程中更新UI
+Progress:进度相关控件，也可以在子线程中更新UI
+
