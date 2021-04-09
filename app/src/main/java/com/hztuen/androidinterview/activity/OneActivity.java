@@ -22,12 +22,10 @@ public class OneActivity extends AppCompatActivity {
         btn = findViewById(R.id.btn);
         Log.e("zhou","111:="+btn.getWidth());
     }
-
     public void startTranActivity(View view) {
         view.postInvalidate();
         startActivity(new Intent(this,TranActivity.class));
     }
-
     @Override
     protected void onResume() {
         super.onResume();

@@ -1,0 +1,65 @@
+ 如何在Application中获取当前Activity实例?
+ 在应用开发过程中，我们经常遇到在Module与App的交互，如果在Module里收到一条消息或指令，
+ 需要App程序中弹 出全局的dialog，往往通过广播的方式，交由App中当前显示的Activity来实现，但是项目过大，尤其对于代码量庞大， 
+ 人员混杂的项目，没有一个BaseActivity，无法获取到当前的Activity，实现就比较困难，通过网上学习，
+ 找到了一种获 取Activity对象的实例的方法，(比如项目是组件化开发的模式,然后有一个需求说token过期就要跳转到登陆界面
+ ,这个时候,你怎么获取到当前的activity是哪一个,解决方案是在application中注册Application.ActivityLifecycleCallbacks
+ ,然后用集合去维护每个activity,然后这个工具类是在common中,这个工具类放在common中,然后每个module都引用这个common)代码如下
+ 
+ import android.app.Activity;
+ import java.lang.ref.WeakReference;
+ /**
+ *MyActivityManager 是一个单例 这个类只保存了当前打开的activity
+ * 获取当前显示的Activity
+ * /
+ public class MyActivityManager {
+     private static MyActivityManager sInstance = new MyActivityManager();
+     private WeakReference<Activity> sCurrentActivityWeakRef;
+     private MyActivityManager() {
+     }
+     public static MyActivityManager getInstance() {
+         return sInstance;
+     }
+     public Activity getCurrentActivity() {
+         Activity currentActivity = null;
+         if (sCurrentActivityWeakRef != null) {
+             currentActivity = sCurrentActivityWeakRef.get();
+         }
+         return currentActivity;
+     }
+     public void setCurrentActivity(Activity activity) {
+         sCurrentActivityWeakRef = new WeakReference<>(activity);
+ } }
+ 
+ 
+ 在Application类中， 实现Application.ActivityLifecycleCallbacks接口，
+ 调用registerActivityLifecycleCallbacks(this);方 法，在如下代码中，将当前的Activity加入到manager中
+ @Override
+     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+     }
+     @Override
+     public void onActivityStarted(Activity activity) {
+     }
+     @Override
+     public void onActivityResumed(Activity activity) {
+         MyActivityManager.getInstance().setCurrentActivity(activity);
+     }
+     @Override
+     public void onActivityPaused(Activity activity) {
+     }
+     @Override
+     public void onActivityStopped(Activity activity) {
+     }
+     @Override
+     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+     }
+     @Override
+     public void onActivityDestroyed(Activity activity) {
+     }
+    
+    
+这样获取Activity的实例就可以通过Activity activity1 = MyActivityManager.getInstance().getCurrentActivity();来实现
+---------------------------------------------------------------------------------分割线------------------------------------------------------------------------
+注意:
+如果activity发生了内存泄露的话,
+ 

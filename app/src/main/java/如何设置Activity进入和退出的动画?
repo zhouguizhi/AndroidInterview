@@ -1,0 +1,29 @@
+如何设置Activity进入和退出的动画?
+答:
+在使用Activity的时候不知道大家有没有发现系统默认的进入动画是从右侧进入到左侧停止，退出动画是从左到右移动直
+到完全退出界面。
+当我们从Activity1跳转到Activty2的时候Activity2从右侧进入界面，点击返回按钮Activity从左到右退出，但是在退出的
+过程中Activity1也会跟随着从左到右进入直到完全显示
+
+如果我们不希望用系统默认的这种进入样式(至少首页不要是从右到左的进入样式)我们可以自己来修改Activty的进入
+样式，下面我们来实际操作一下:
+
+第一种方式。
+在跳转过程中我们可以设置进入Activity的进入动画方式
+通过使用overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out);方法来实现
+此方法写在StartActivity之后
+startActivity(new Intent(MenuFragment.this.getActivity(),LogInActivity.class));
+但是使用这个方式的话只能设置要跳转的Activty的样式，不能设置进入首页的Activity的样式(也就是MainActivty)因
+为MainActivty为程序的入口没有别的界面跳转到此故不能使用这种方式来动态设置Activty的样式,其实这里的MainActivity 在实际开发
+中应该是指SplashActivity
+
+第二种方式
+在AndroidManifest.xml文件中设置Activity的样式
+<activity android:name="com.xiaoqiang.BottomMenuActivity" android:theme="@style/Anim_fade" >
+     <category android:name="android.intent.category.LAUNCHER" />
+  </intent-filter>
+</activity>
+这个BottomMenuActivity为程序的入口 我们在AndroidManifest中来设置他的进入和退出动画这样就可以替换掉系统
+自动的动画效果，然后是Anim_fade
+设置Activty的进入和退出动画，这样就能把制定Activity的进入和退出效果 相比这两种方式，更推荐第二种，
+改变Activity的的默认样式使界面更加美观

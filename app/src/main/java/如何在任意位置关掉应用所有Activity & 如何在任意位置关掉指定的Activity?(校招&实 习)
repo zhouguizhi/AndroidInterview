@@ -1,0 +1,27 @@
+如何在任意位置关掉应用所有Activity & 如何在任意位置关掉指定的Activity?
+1.如何在任意位置关掉应用所有Activity
+2:如何在任意位置关掉指定的Activity 假设有三个Activity ,分别是A,B,C 从A进入B，然后从B进入C,当从一个Activity进 入另一个activity的时候，前一个Activity并不销毁，而是在最后一个Activity界面C中统一销毁A和B,该怎么做?
+
+其实这二个问题都可以使用集合去维护所有的activity,所有在Application中注册 在Application类中， 实现Application.ActivityLifecycleCallbacks接口，
+然后在
+ public void onActivityCreated(Activity activity, Bundle savedInstanceState) {}
+ 这个方法中把所有的activity都添加到集合中,然后在
+  @Override
+      public void onActivityDestroyed(Activity activity) {
+      }
+ 这个方法中在集合中remove指定的activity
+ 
+ 下面也有一种方案:
+ public class A extends Activity implements OnClickListener {
+ private Button btn_next;
+ public static A instance;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity2);
+ btn_next=(Button) this.findViewById(R.id.btn2);
+ btn_next.setOnClickListener(this);
+ instance=this;
+ }
+ 在另一个Activity中，调用A.instance.finish();即可。
+    

@@ -1,0 +1,4 @@
+在Activity进行配置时，catrgory和action的区别是什么?
+action:
+intent 有一个或多个action，如果过滤规则中能够匹配到其中一个，是可以成功的 
+category: intent有一个或多个category，过滤规则需要满足对应所有的category，才可以成功的
