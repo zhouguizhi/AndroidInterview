@@ -55,7 +55,13 @@ invalidate和postvalidate的区别?
   最终发现其实最后还是调用了invalidate()中方法刷新UI
 
   现在我有个问题了,如果我就是在主线程中调用了postInvalidate()会怎么样呢?
-  写代码测试
+  从上面的源码中我们发现就是在主线程中调用了postInvalidate,然后通过handler发送消息去调用invalidate方法,可以复写view中的
+   @Override
+      public void invalidate() {
+          super.invalidate();
+          Log.e("zhou","被调用了..");
+      }
+  方法
 
 
 

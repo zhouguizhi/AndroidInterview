@@ -1,0 +1,31 @@
+懒汉单例模式为什么要加volaitle?(校招&实习)
+首先我们直接上一段代码
+public class Singleton {
+public volatile static Singleton instance;//避免代码1位置的指令重排//3
+/** *
+* 代码1位置的指令重排实际上是分为三步
+* 1..memory = allocate() //分配内存
+* 2.. ctorInstanc(memory) //初始化对象
+* 3.. instance = memory //设置instance指向刚分配的地址
+* 假如因为指令重排导致执行的顺序变为了132
+* 那么假如a线程中执行完13之后,b线程到达代码2处.执行判断语句.发现instance指向的是一段地址因此直接不进入判
+断语句而是直接返回了一个没有初始化的空的对象
+* * */
+    public static Singleton getSingleton(){
+        if (instance == null){//2
+            synchronized (Singleton.class){
+                if (instance == null){
+                    instance = new Singleton();//1
+                }
+} }
+        return instance;
+    }
+}
+
+在代码2处的instance对象有一个修饰符volatile,volatile在这里的作用是避免指令重排.指令重排是什么呢,可以参考这篇 文章.
+https://blog.csdn.net/blueheart20/article/details/52117761 
+我们来看一下如果没有加上volatile可能会发生什么问题: 假如有AB两个线程当A线程执行到代码1处的时候.
+这个语 句不是一个原子操作.它实际上分为三个步骤 * 1...memory = allocate() //分配内存 * 2... ctorInstanc(memory) //初始化 对象 * 
+3... instance = memory //设置instance指向刚分配的地址 如果发生了指令重排,使得执行顺序变成了132,当执行 完13之后,
+instance指向了类型了instance但是内容为空的对象. 此时如果B线程执行到了代码2,因为instance不是null,
+程序会直接返回instance空的对象.所以我们加上了volatile避免了指令重排可以避免这样的情况发生

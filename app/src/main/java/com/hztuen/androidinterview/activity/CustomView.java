@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.Nullable;
 /**
- * @Description: java类作用描述
+ * @Description: 测试postInvalidate 在主线程中更新刷新view
  * @Author: zhouguizhi
  * @CreateDate: 2021/3/19 下午10:29
  * @Version: 1.0
@@ -38,6 +38,5 @@ public class CustomView extends View {
                 postInvalidate();
             }
         },5000);
-
     }
 }

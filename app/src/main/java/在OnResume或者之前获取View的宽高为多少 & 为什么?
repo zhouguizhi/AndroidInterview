@@ -1,0 +1,3 @@
+在OnResume或者之前获取View的宽高为多少 & 为什么?
+
+答:在onResume()之前比如onCreate()方法中获取view的宽和高都是0
