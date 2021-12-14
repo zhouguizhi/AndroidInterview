@@ -1,0 +1,11 @@
+1:OSI模型
+2:http协议概述
+3:为什么Okhttp使用socket,而不是httpUrlConnection
+4:OKhttp核心类有那些
+5:构建者/责任链模式在Okhttp中的使用
+6:okhttp流程
+7:okhttp是如何通过缓存响应数据来减少重复的网络请求
+8:okhttp对网络请求有那些优化
+9:http以及https原理简单介绍下,加密是怎么做的
+10:怎么设计一个自己的网络框架,为什么这么设计？
+11:为什么选择网络框架的时候要选择okhttp,而不是其他网络框架
